@@ -1,0 +1,111 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def verificar_login():
+    senha_digitada = entry_senha.get()
+    if senha_digitada == "12345":
+        janela_login.destroy()
+        abrir_plataforma()
+    else:
+        messagebox.showerror("Erro", "Senha incorreta, tente novamente!")
+
+def abrir_plataforma():
+    plataforma = tk.Tk()
+    plataforma.title("Plataforma de Cursos e Ajuda")
+    plataforma.geometry("600x400")
+    plataforma.configure(background="#4682B4")
+
+    lbl_bemvindo = tk.Label(plataforma, text="Bem-vindo à Plataforma de Cursos", font=("Helvetica", 25), bg="#4682B4", fg="white")
+    lbl_bemvindo.pack(pady=20)
+
+    btn_material = tk.Button(plataforma, text="Material do Curso", font=("Helvetica", 20), command=mostrar_cursos, bg="#ffffff", fg="#4682B4", relief="flat", width=20)
+    btn_material.pack(pady=10)
+
+    btn_entrevista = tk.Button(plataforma, text="Simular Entrevista de Emprego", font=("Helvetica", 20), command=simular_entrevista, bg="#ffffff", fg="#4682B4", relief="flat", width=25)
+    btn_entrevista.pack(pady=10)
+
+    btn_ajuda = tk.Button(plataforma, text="Centro de Ajuda", font=("Helvetica", 20), command=mostrar_ajuda, bg="#ffffff", fg="#4682B4", relief="flat", width=20)
+    btn_ajuda.pack(pady=10)
+
+    plataforma.mainloop()
+
+def mostrar_cursos():
+    cursos = ["Administração", "Desenvolvimento de Software", "Lógica da Programação", "Recursos Humanos", "Confeitaria", "Culinária"]
+    janela_cursos = tk.Toplevel()
+    janela_cursos.title("Cursos Disponíveis")
+    janela_cursos.geometry("400x300")
+    janela_cursos.configure(background="#4682B4")
+
+    lbl_cursos = tk.Label(janela_cursos, text="Cursos Disponíveis:", font=("Helvetica", 22, "bold"), bg="#4682B4", fg="white")
+    lbl_cursos.pack(pady=10)
+
+    for curso in cursos:
+        curso_button = tk.Button(janela_cursos, text=curso, font=("Helvetica", 18), bg="#ffffff", fg="#4682B4", relief="flat", command=lambda c=curso: mostrar_transcricao(c), width=20)
+        curso_button.pack(pady=5)
+
+    btn_fechar = tk.Button(janela_cursos, text="Fechar", font=("Helvetica", 20), command=janela_cursos.destroy, bg="#ffffff", fg="#4682B4", relief="flat", width=20)
+    btn_fechar.pack(pady=20)
+
+def mostrar_transcricao(curso):
+    transcricoes = {
+        "Administração": "Transcrição da aula de Administração: Gerenciamento de recursos humanos, marketing e finanças.",
+        "Desenvolvimento de Software": "Transcrição da aula de Desenvolvimento de Software: Algoritmos, programação em Python, arquitetura de sistemas.",
+        "Lógica da Programação": "Transcrição da aula de Lógica da Programação: Estruturas de controle, arrays e recursão.",
+        "Recursos Humanos": "Transcrição da aula de Recursos Humanos: Processos de recrutamento, gestão de pessoas e clima organizacional.",
+        "Confeitaria": "Transcrição da aula de Confeitaria: Técnicas de decoração de bolos, receitas de doces e croissants.",
+        "Culinária": "Transcrição da aula de Culinária: Preparação de pratos principais, molhos e receitas rápidas."
+    }
+
+    materiais = {
+        "Administração": ["PDF: Gestão de Projetos", "Vídeo: Introdução ao Marketing"],
+        "Desenvolvimento de Software": ["PDF: Introdução ao Python", "Vídeo: Programação Orientada a Objetos"],
+        "Lógica da Programação": ["PDF: Estruturas de Dados", "Vídeo: Lógica de Programação Avançada"],
+        "Recursos Humanos": ["PDF: Como recrutar talentos", "Vídeo: Gestão de Conflitos"],
+        "Confeitaria": ["PDF: Receitas de Bolos", "Vídeo: Técnicas de Decoração"],
+        "Culinária": ["PDF: Receitas Rápidas", "Vídeo: Preparando Pratos para Iniciantes"]
+    }
+
+    janela_transcricao = tk.Toplevel()
+    janela_transcricao.title(f"Curso: {curso}")
+    janela_transcricao.geometry("500x400")
+    janela_transcricao.configure(background="#4682B4")
+
+    lbl_titulo = tk.Label(janela_transcricao, text=f"{curso}: Transcrição da Aula", font=("Helvetica", 20, "bold"), bg="#4682B4", fg="white")
+    lbl_titulo.pack(pady=10)
+
+    lbl_transcricao = tk.Label(janela_transcricao, text=transcricoes[curso], font=("Helvetica", 15), bg="#4682B4", fg="white", wraplength=450)
+    lbl_transcricao.pack(pady=10)
+
+    lbl_materiais = tk.Label(janela_transcricao, text="Materiais de Apoio:", font=("Helvetica", 18, "bold"), bg="#4682B4", fg="white")
+    lbl_materiais.pack(pady=10)
+
+    for material in materiais[curso]:
+        tk.Label(janela_transcricao, text=material, font=("Helvetica", 14), bg="#4682B4", fg="white").pack(pady=5)
+
+    btn_fechar = tk.Button(janela_transcricao, text="Fechar", font=("Helvetica", 20), command=janela_transcricao.destroy, bg="#ffffff", fg="#4682B4", relief="flat", width=20)
+    btn_fechar.pack(pady=20)
+
+def simular_entrevista():
+    messagebox.showinfo("Entrevista de Emprego", "Aqui você pode fazer simulações de entrevistas com nossos atendentes onlines.")
+
+def mostrar_ajuda():
+    messagebox.showinfo("Centro de Ajuda", "Para mais informações, entre em contato pelo número: 992737841")
+
+janela_login = tk.Tk()
+janela_login.title("Login da Plataforma")
+janela_login.geometry("400x250")
+janela_login.configure(background="#4682B4")
+
+lbl_titulo = tk.Label(janela_login, text="Horizontes do Saber", font=("Helvetica", 24, "bold"), bg="#4682B4", fg="white")
+lbl_titulo.pack(pady=10)
+
+lbl_senha = tk.Label(janela_login, text="Digite a senha de acesso", font=("Helvetica", 18), bg="#4682B4", fg="white")
+lbl_senha.pack(pady=20)
+
+entry_senha = tk.Entry(janela_login, show="*", font=("Helvetica", 18), bg="#D3D3D3", fg="black")
+entry_senha.pack(pady=10)
+
+btn_login = tk.Button(janela_login, text="Entrar", font=("Helvetica", 18), command=verificar_login, bg="#ffffff", fg="#4682B4", relief="flat", width=20)
+btn_login.pack(pady=10)
+
+janela_login.mainloop()
